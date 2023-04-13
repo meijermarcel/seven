@@ -107,8 +107,14 @@ export const load = async () => {
 			}
 		});
 
-		// sort standings by wins
-		standings.sort((a, b) => b.wins - a.wins);
+		// sort standings by wins, total games
+		standings.sort((a, b) => {
+			const aTotal = a.wins + a.losses;
+			const bTotal = b.wins + b.losses;
+			return b.wins / bTotal - a.wins / aTotal;
+		});
+
+		// standings.sort((a, b) => b.wins - a.wins);
 
 		// sort each member's teams by wins
 		standings.forEach((member) => {
