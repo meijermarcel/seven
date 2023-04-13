@@ -114,12 +114,12 @@ export const load = async () => {
 			return b.wins / bTotal - a.wins / aTotal;
 		});
 
-		// standings.sort((a, b) => b.wins - a.wins);
+		standings.sort((a, b) => b.wins - a.wins);
 
 		// sort each member's teams by wins
-		standings.forEach((member) => {
-			member.teams.sort((a, b) => b.wins - a.wins);
-		});
+		// standings.forEach((member) => {
+		// 	member.teams.sort((a, b) => b.wins - a.wins);
+		// });
 
 		console.log(standings);
 
