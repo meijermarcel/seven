@@ -1,4 +1,4 @@
-import type { Standings, MemberStanding } from '../lib/types';
+import type { MemberStanding } from '../lib/types';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
@@ -30,30 +30,35 @@ const standings: MemberStanding[] = [
 		name: 'Marcel',
 		wins: 0,
 		losses: 0,
+		gamesBehind: 0,
 		teams: []
 	},
 	{
 		name: 'Nate',
 		wins: 0,
 		losses: 0,
+		gamesBehind: 0,
 		teams: []
 	},
 	{
 		name: 'Bob',
 		wins: 0,
 		losses: 0,
+		gamesBehind: 0,
 		teams: []
 	},
 	{
 		name: 'Tom',
 		wins: 0,
 		losses: 0,
+		gamesBehind: 0,
 		teams: []
 	},
 	{
 		name: 'Carter',
 		wins: 0,
 		losses: 0,
+		gamesBehind: 0,
 		teams: []
 	}
 ];
@@ -62,7 +67,18 @@ const url = 'https://www.foxsports.com/mlb/standings';
 // 	return { members: standings };
 // }) satisfies Standings;
 
+// function to reset standings
+const resetStandings = () => {
+	standings.forEach((member) => {
+		member.wins = 0;
+		member.losses = 0;
+		member.teams = [];
+	});
+};
+
 export const load = async () => {
+	resetStandings();
+
 	return axios.get(url).then((response) => {
 		// Load HTML we fetched in the previous line
 		const $ = cheerio.load(response.data);
@@ -108,20 +124,22 @@ export const load = async () => {
 		});
 
 		// sort standings by wins, total games
-		standings.sort((a, b) => {
-			const aTotal = a.wins + a.losses;
-			const bTotal = b.wins + b.losses;
-			return b.wins / bTotal - a.wins / aTotal;
-		});
-
-		standings.sort((a, b) => b.wins - a.wins);
+		standings.sort((a, b) => b.wins - a.wins || a.wins + a.losses - (b.wins + b.losses));
 
 		// sort each member's teams by wins
-		// standings.forEach((member) => {
-		// 	member.teams.sort((a, b) => b.wins - a.wins);
-		// });
+		standings.forEach((member) => {
+			member.teams.sort((a, b) => b.wins - a.wins);
+		});
 
-		console.log(standings);
+		// calculate games behind
+		standings.forEach((member, index) => {
+			if (index === 0) {
+				member.gamesBehind = 0;
+			} else {
+				const leader = standings[0];
+				member.gamesBehind = leader.wins - member.wins;
+			}
+		});
 
 		return { members: standings };
 	});

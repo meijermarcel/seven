@@ -18,10 +18,6 @@
         gap: 3rem;
     }
 
-    .record {
-        font-weight: 600;
-    }
-
     .position {
         font-weight: bold;
         color: gray;
@@ -40,9 +36,8 @@
 
     .member-info {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 
     .team-container {
@@ -72,24 +67,36 @@
         gap: 1rem;
         align-items: center;
     }
+
+    .split {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
 </style>
 
 <div class="container">
     {#each data.members as member, i}
         <div class="member">
             <div class="member-info">
-                <h3>
-                    <span class="position">{ i + 1 }</span>
-                    { member.name }
-                </h3>
-                <div class="record">{ member.wins } - { member.losses }</div>
-                <div>{ member.wins + member.losses } GP</div>
+                <div class="split">
+                    <h3>
+                        <span class="position">{ i + 1 }</span>
+                        { member.name }
+                    </h3>
+                    <div>{member.gamesBehind } GB</div>
+                </div>
+                <div class="split">
+                    <div>{ member.wins + member.losses } GP</div>
+                    <div>{ member.wins } - { member.losses }</div>
+                </div>
             </div>
             <div class="team-container">
                 {#each member.teams as team}
                     <div class="team">
                         <div class="name">
-                            <img height="30px" src="{team.img}" />
+                            <img height="25px" src="{team.img}" alt="" />
                             <div>{ team.name }</div>
                         </div>
                         <div>{ team.wins } - { team.losses }</div>
