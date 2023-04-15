@@ -31,6 +31,8 @@ const standings: MemberStanding[] = [
 		wins: 0,
 		losses: 0,
 		gamesBehind: 0,
+		runsScored: 0,
+		diff: 0,
 		teams: []
 	},
 	{
@@ -38,6 +40,8 @@ const standings: MemberStanding[] = [
 		wins: 0,
 		losses: 0,
 		gamesBehind: 0,
+		runsScored: 0,
+		diff: 0,
 		teams: []
 	},
 	{
@@ -45,6 +49,8 @@ const standings: MemberStanding[] = [
 		wins: 0,
 		losses: 0,
 		gamesBehind: 0,
+		runsScored: 0,
+		diff: 0,
 		teams: []
 	},
 	{
@@ -52,6 +58,8 @@ const standings: MemberStanding[] = [
 		wins: 0,
 		losses: 0,
 		gamesBehind: 0,
+		runsScored: 0,
+		diff: 0,
 		teams: []
 	},
 	{
@@ -59,6 +67,8 @@ const standings: MemberStanding[] = [
 		wins: 0,
 		losses: 0,
 		gamesBehind: 0,
+		runsScored: 0,
+		diff: 0,
 		teams: []
 	}
 ];
@@ -88,6 +98,8 @@ export const load = async () => {
 		listItems.each((index, element) => {
 			const team = $(element).find('td').eq(1).text();
 			const record = $(element).find('td').eq(2).text();
+			const runsScored = parseInt($(element).find('td').eq(7).text());
+			const diff = parseInt($(element).find('td').eq(9).text());
 
 			// get img src from team
 			const teamImg = $(element).find('td').eq(1).find('img').attr('src');
@@ -112,12 +124,16 @@ export const load = async () => {
 					// add wins and losses to memberStanding
 					memberStanding.wins += wins;
 					memberStanding.losses += losses;
+					memberStanding.runsScored += runsScored;
+					memberStanding.diff += diff;
 					// add team to memberStanding
 					memberStanding.teams.push({
 						name: teamSanitized,
 						img: teamImg || '',
 						wins,
-						losses
+						losses,
+						runsScored: runsScored,
+						diff: diff
 					});
 				}
 			}
