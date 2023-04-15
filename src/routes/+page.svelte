@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Standings } from "$lib/types";
+    import StandingsTable from "$lib/components/standings-table/StandingsTable.svelte";
 
 
     export let data: Standings;
@@ -11,11 +12,12 @@
 
     .container {
         font-family: 'Manrope', sans-serif;
-        max-width: 300px;
+        max-width: 600px;
         margin: 2rem auto;
         display: flex;
         flex-direction: column;
         gap: 3rem;
+        padding: 0 0.5rem;
     }
 
     .position {
@@ -46,26 +48,11 @@
         gap: 1rem;
         background-color: whitesmoke;
         border-radius: 7px;
-        padding: 2rem;
-    }
-
-    .team {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+        padding: 1rem;
     }
 
     h3 {
         margin: 0;
-    }
-
-    .team .name {
-        font-weight: 600;
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-        align-items: center;
     }
 
     .split {
@@ -87,21 +74,9 @@
                     </h3>
                     <div>{member.gamesBehind } GB</div>
                 </div>
-                <div class="split">
-                    <div>{ member.wins + member.losses } GP</div>
-                    <div>{ member.wins } - { member.losses }</div>
-                </div>
             </div>
             <div class="team-container">
-                {#each member.teams as team}
-                    <div class="team">
-                        <div class="name">
-                            <img height="25px" src="{team.img}" alt="" />
-                            <div>{ team.name }</div>
-                        </div>
-                        <div>{ team.wins } - { team.losses }</div>
-                    </div>
-                {/each}
+                <StandingsTable {member} />
             </div>
         </div>
     {/each}
