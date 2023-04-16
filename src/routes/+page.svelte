@@ -2,28 +2,26 @@
 	import type { Standings } from "$lib/types";
     import StandingsTable from "$lib/components/standings-table/StandingsTable.svelte";
 
-
     export let data: Standings;
-
 </script>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
-
     .container {
-        font-family: 'Manrope', sans-serif;
-        max-width: 600px;
-        margin: 2rem auto;
         display: flex;
         flex-direction: column;
-        gap: 3rem;
-        padding: 0 0.5rem;
+        gap: 2rem;
+    }
+
+    h3 {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
     }
 
     .position {
         font-weight: bold;
         color: gray;
-        margin-right: 1rem;
     }
 
     .member {
@@ -71,6 +69,7 @@
                     <h3>
                         <span class="position">{ i + 1 }</span>
                         { member.name }
+                        <span>{ i === 0 ? '👑' : i === 4 ? '🤡' : '' }</span>
                     </h3>
                     <div>{member.gamesBehind } GB</div>
                 </div>

@@ -1,0 +1,61 @@
+<script>
+    import { page } from '$app/stores';
+</script>
+
+<style>
+    .container {
+        padding: 1rem 0.5rem;
+        max-width: 600px;
+        margin: 1rem auto;
+    }
+
+    nav {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        margin: 1rem 0.5rem;
+    }
+
+    a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        padding: 3px 6px;
+        border-radius: 5px;
+    }
+
+    a.active {
+        color: white;
+        background-color: var(--primary-color);
+    }
+
+    .title {
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+
+    footer {
+        color: gray;
+    }
+
+    footer p {
+        margin: 0;
+        text-align: center;
+        font-size: 12px;
+    }
+
+</style>
+
+<nav>
+    <div class="title">MLB 2023</div>
+    <a href="/" class:active={$page.url.pathname==='/'}>Standings</a>
+    <a href="/stats" class:active={$page.url.pathname==='/stats'}>Stats</a>
+</nav>
+
+<div class="container">
+    <slot />
+</div>
+
+<footer>
+    <p>twelveminusfive</p>
+</footer>
