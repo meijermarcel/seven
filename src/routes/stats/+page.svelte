@@ -38,7 +38,7 @@
 
     .stat-picker button {
         border-radius: 10px;
-        margin: 0.5rem;
+        margin: 0 0.5rem 0.5rem 0.5rem;
         padding: 7px 15px;
         border: none;
         background-color: lightgray;
@@ -47,8 +47,8 @@
     }
 
     .stat-picker button.selected {
-        /* background-color: green; */
-        background-image: linear-gradient(to right top, #b20000, #c83a00, #dc5e00, #ef7f00, #ffa000);
+        background-color: var(--primary-color);
+        /* background-image: linear-gradient(to right top, #b20000, #c83a00, #dc5e00, #ef7f00, #ffa000); */
         color: white;
     }
     

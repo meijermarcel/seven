@@ -4,7 +4,7 @@
 
 <style>
     .container {
-        padding: 0 0.5rem;
+        padding: 1rem 0.5rem;
         max-width: 600px;
         margin: 1rem auto;
     }
@@ -13,7 +13,7 @@
         display: flex;
         gap: 1.5rem;
         align-items: center;
-        margin: 0 0.5rem;
+        margin: 1rem 0.5rem;
     }
 
     a {
@@ -34,6 +34,16 @@
         font-size: 1.5rem;
     }
 
+    footer {
+        color: gray;
+    }
+
+    footer p {
+        margin: 0;
+        text-align: center;
+        font-size: 12px;
+    }
+
 </style>
 
 <nav>
@@ -45,3 +55,7 @@
 <div class="container">
     <slot />
 </div>
+
+<footer>
+    <p>twelveminusfive</p>
+</footer>

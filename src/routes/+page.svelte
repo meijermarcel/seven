@@ -9,13 +9,19 @@
     .container {
         display: flex;
         flex-direction: column;
-        gap: 3rem;
+        gap: 2rem;
+    }
+
+    h3 {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
     }
 
     .position {
         font-weight: bold;
         color: gray;
-        margin-right: 1rem;
     }
 
     .member {
@@ -63,6 +69,7 @@
                     <h3>
                         <span class="position">{ i + 1 }</span>
                         { member.name }
+                        <span>{ i === 0 ? '👑' : i === 4 ? '🤡' : '' }</span>
                     </h3>
                     <div>{member.gamesBehind } GB</div>
                 </div>

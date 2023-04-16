@@ -9,7 +9,7 @@
     table {
         width: 100%;
         text-align: center;
-        font-size: 12px;
+        font-size: 14px;
     }
 
     thead {
