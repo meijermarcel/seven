@@ -2,22 +2,14 @@
 	import type { Standings } from "$lib/types";
     import StandingsTable from "$lib/components/standings-table/StandingsTable.svelte";
 
-
     export let data: Standings;
-
 </script>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
-
     .container {
-        font-family: 'Manrope', sans-serif;
-        max-width: 600px;
-        margin: 2rem auto;
         display: flex;
         flex-direction: column;
         gap: 3rem;
-        padding: 0 0.5rem;
     }
 
     .position {

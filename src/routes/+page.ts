@@ -1,4 +1,4 @@
-import type { MemberStanding } from '../lib/types';
+import { MemberStanding } from '../lib/types';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
@@ -25,53 +25,8 @@ const members = [
 	}
 ];
 
-const standings: MemberStanding[] = [
-	{
-		name: 'Marcel',
-		wins: 0,
-		losses: 0,
-		gamesBehind: 0,
-		runsScored: 0,
-		diff: 0,
-		teams: []
-	},
-	{
-		name: 'Nate',
-		wins: 0,
-		losses: 0,
-		gamesBehind: 0,
-		runsScored: 0,
-		diff: 0,
-		teams: []
-	},
-	{
-		name: 'Bob',
-		wins: 0,
-		losses: 0,
-		gamesBehind: 0,
-		runsScored: 0,
-		diff: 0,
-		teams: []
-	},
-	{
-		name: 'Tom',
-		wins: 0,
-		losses: 0,
-		gamesBehind: 0,
-		runsScored: 0,
-		diff: 0,
-		teams: []
-	},
-	{
-		name: 'Carter',
-		wins: 0,
-		losses: 0,
-		gamesBehind: 0,
-		runsScored: 0,
-		diff: 0,
-		teams: []
-	}
-];
+let standings: MemberStanding[] = [];
+
 const url = 'https://www.foxsports.com/mlb/standings';
 // export const load = (async ({ fetch, params }) => {
 // 	return { members: standings };
@@ -79,11 +34,13 @@ const url = 'https://www.foxsports.com/mlb/standings';
 
 // function to reset standings
 const resetStandings = () => {
-	standings.forEach((member) => {
-		member.wins = 0;
-		member.losses = 0;
-		member.teams = [];
-	});
+	standings = [
+		new MemberStanding('Marcel'),
+		new MemberStanding('Nate'),
+		new MemberStanding('Bob'),
+		new MemberStanding('Tom'),
+		new MemberStanding('Carter')
+	];
 };
 
 export const load = async () => {
