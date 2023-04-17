@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Standings } from "$lib/types";
+    import { slide } from "svelte/transition";
     import StandingsTable from "$lib/components/standings-table/StandingsTable.svelte";
+    import GameCard from "$lib/components/game-card/GameCard.svelte";
 
     export let data: Standings;
 </script>
@@ -9,7 +11,7 @@
     .container {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        /* gap: 2rem; */
     }
 
     h3 {
@@ -28,6 +30,8 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+        border-bottom: 2px solid lightgray;
+        padding: 1rem 0;
     }
 
     .member > * {
@@ -59,24 +63,46 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    .games-behind {
+        font-weight: bold;
+        color: white;
+        background-color: var(--primary-color);
+        padding: 3px 6px;
+        border-radius: 7px;
+    }
+
+    .games-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+    }
 </style>
 
 <div class="container">
     {#each data.members as member, i}
         <div class="member">
-            <div class="member-info">
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <div class="member-info" on:click={() => member.collapsed = !member.collapsed}>
                 <div class="split">
                     <h3>
                         <span class="position">{ i + 1 }</span>
                         { member.name }
                         <span>{ i === 0 ? '👑' : i === 4 ? '🤡' : '' }</span>
                     </h3>
-                    <div>{member.gamesBehind } GB</div>
+                    <div class="games-behind">{member.gamesBehind } GB</div>
                 </div>
             </div>
-            <div class="team-container">
-                <StandingsTable {member} />
-            </div>
+            { #if !member.collapsed }
+                <div class="team-container" transition:slide={{ duration: 150 }}>
+                    <div class="games-container">
+                        { #each member.gamesToday as game }
+                            <GameCard {game} memberName={member.name} />
+                        { /each }
+                    </div>
+                    <StandingsTable {member} />
+                </div>
+            { /if }
         </div>
     {/each}
 </div>

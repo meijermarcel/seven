@@ -1,29 +1,7 @@
 import { MemberStat } from '$lib/types';
 import axios from 'axios';
 import cheerio from 'cheerio';
-
-const members = [
-	{
-		name: 'Marcel',
-		teams: ['Phillies', 'Mariners', 'Rays', 'Rockies', 'Athletics', 'Nationals']
-	},
-	{
-		name: 'Nate',
-		teams: ['Yankees', 'Cardinals', 'Twins', 'Diamondbacks', 'Cubs', 'Tigers']
-	},
-	{
-		name: 'Bob',
-		teams: ['Astros', 'Guardians', 'Blue Jays', 'Rangers', 'Giants', 'Reds']
-	},
-	{
-		name: 'Tom',
-		teams: ['Mets', 'Dodgers', 'Brewers', 'Angels', 'Red Sox', 'Royals']
-	},
-	{
-		name: 'Carter',
-		teams: ['Padres', 'Braves', 'Orioles', 'White Sox', 'Pirates', 'Marlins']
-	}
-];
+import { members } from '$lib/global-var';
 
 let stats: MemberStat[] = [];
 const url = 'https://www.foxsports.com/mlb/team-stats?category=batting&season=2023&seasonType=reg';

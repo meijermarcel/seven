@@ -1,29 +1,7 @@
-import { MemberStanding } from '../lib/types';
+import { Game, GameTeam, MemberStanding } from '../lib/types';
 import axios from 'axios';
 import cheerio from 'cheerio';
-
-const members = [
-	{
-		name: 'Marcel',
-		teams: ['Phillies', 'Mariners', 'Rays', 'Rockies', 'Athletics', 'Nationals']
-	},
-	{
-		name: 'Nate',
-		teams: ['Yankees', 'Cardinals', 'Twins', 'Diamondbacks', 'Cubs', 'Tigers']
-	},
-	{
-		name: 'Bob',
-		teams: ['Astros', 'Guardians', 'Blue Jays', 'Rangers', 'Giants', 'Reds']
-	},
-	{
-		name: 'Tom',
-		teams: ['Mets', 'Dodgers', 'Brewers', 'Angels', 'Red Sox', 'Royals']
-	},
-	{
-		name: 'Carter',
-		teams: ['Padres', 'Braves', 'Orioles', 'White Sox', 'Pirates', 'Marlins']
-	}
-];
+import { members } from '$lib/global-var';
 
 let standings: MemberStanding[] = [];
 
@@ -41,6 +19,33 @@ const resetStandings = () => {
 		new MemberStanding('Tom'),
 		new MemberStanding('Carter')
 	];
+};
+
+const capitalize = (s: string) => {
+	if (typeof s !== 'string') return '';
+	return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
+const getTeamName = (team: string) => {
+	const teamSplit = team.split(' ');
+	let sanitized = '';
+	if (teamSplit.length === 2) {
+		sanitized = capitalize(teamSplit[0].trim().toLowerCase());
+	} else if (teamSplit.length === 3) {
+		sanitized =
+			capitalize(teamSplit[0].trim().toLowerCase()) +
+			' ' +
+			capitalize(teamSplit[1].trim().toLowerCase());
+	}
+
+	return sanitized;
+};
+
+const shouldShowScore = (game: Game) => {
+	if (game.status.toLowerCase().includes('final')) {
+		return true;
+	}
+	return false;
 };
 
 export const load = async () => {
@@ -114,6 +119,60 @@ export const load = async () => {
 			}
 		});
 
-		return { members: standings };
+		return axios.get('https://www.foxsports.com/mlb/scores').then((response) => {
+			const $ = cheerio.load(response.data);
+			const listItems = $('.score-chip');
+
+			listItems.each((index, element) => {
+				const teamOne = $(element).find('.score-team-name.team').eq(0).text();
+				const teamOneImg = $(element).find('.score-team-logo').eq(0).find('img').attr('src');
+
+				const teamTwo = $(element).find('.score-team-name.team').eq(1).text();
+				const teamTwoImg = $(element).find('.score-team-logo').eq(1).find('img').attr('src');
+
+				const teamOneScore = $(element).find('.score-team-score').eq(0).text();
+				const teamTwoScore = $(element).find('.score-team-score').eq(1).text();
+
+				const statusText = $(element).find('.score-game-info').eq(0).find('span').text().trim();
+
+				const teamOneSanitized = getTeamName(teamOne);
+				const teamTwoSanitized = getTeamName(teamTwo);
+
+				const game = new Game();
+				game.awayTeam = new GameTeam(teamOneSanitized, '', teamOneImg);
+				game.homeTeam = new GameTeam(teamTwoSanitized, '', teamTwoImg);
+				game.awayTeam.score =
+					teamOneScore && teamOneScore !== '-' ? parseInt(teamOneScore) : undefined;
+				game.homeTeam.score =
+					teamTwoScore && teamTwoScore !== '-' ? parseInt(teamTwoScore.trim()) : undefined;
+				game.status = statusText === '-' ? 'IN PROGRESS' : statusText;
+				game.showScore = shouldShowScore(game);
+
+				// find away team member in standings
+				const awayTeamMember = standings.find((member) =>
+					member.teams.find((team) => team.name === teamOneSanitized)
+				);
+				if (awayTeamMember) {
+					game.awayTeam.memberName = awayTeamMember.name;
+					// find away team in member's teams
+					awayTeamMember.gamesToday.push(game);
+				}
+
+				// find home team in standings
+				const homeTeamMember = standings.find((member) =>
+					member.teams.find((team) => team.name === teamTwoSanitized)
+				);
+				if (homeTeamMember) {
+					game.homeTeam.memberName = homeTeamMember.name;
+					// if awayTeam member name is different than homeTeam member name
+					if (awayTeamMember && awayTeamMember.name !== homeTeamMember.name) {
+						// find home team in member's teams
+						homeTeamMember.gamesToday.push(game);
+					}
+				}
+			});
+
+			return { members: standings };
+		});
 	});
 };
