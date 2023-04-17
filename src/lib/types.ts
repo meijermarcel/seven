@@ -9,7 +9,9 @@ export class MemberStanding {
 	gamesBehind = 0;
 	runsScored = 0;
 	diff = 0;
+	collapsed = true;
 	teams: Team[] = [];
+	gamesToday: Game[] = [];
 
 	constructor(name: string) {
 		this.name = name;
@@ -23,6 +25,26 @@ export class Team {
 	runsScored = 0;
 	diff = 0;
 	img = '';
+}
+
+export class Game {
+	awayTeam = new GameTeam('', '');
+	homeTeam = new GameTeam('', '');
+	status = '';
+	showScore = true;
+}
+
+export class GameTeam {
+	name = '';
+	memberName = '';
+	score? = 0;
+	logoSrc = '';
+
+	constructor(name: string, memberName: string, logoSrc?: string) {
+		this.name = name;
+		this.memberName = memberName;
+		this.logoSrc = logoSrc || '';
+	}
 }
 
 export class Stats {

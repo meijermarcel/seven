@@ -44,11 +44,11 @@
         background-color: lightgray;
         font-size: 20px;
         font-weight: bold;
+        color: black;
     }
 
     .stat-picker button.selected {
         background-color: var(--primary-color);
-        /* background-image: linear-gradient(to right top, #b20000, #c83a00, #dc5e00, #ef7f00, #ffa000); */
         color: white;
     }
     
