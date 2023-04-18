@@ -133,7 +133,14 @@ export const load = async () => {
 				const teamOneScore = $(element).find('.score-team-score').eq(0).text();
 				const teamTwoScore = $(element).find('.score-team-score').eq(1).text();
 
-				const statusText = $(element).find('.score-game-info').eq(0).find('span').text().trim();
+				let statusText = $(element).find('.score-game-info').eq(0).find('span').text().trim();
+				if (statusText.includes('+')) {
+					// split after first 8 characters
+					statusText = statusText.substring(0, 8) + ' ' + statusText.substring(8);
+				}
+				// if (statusText.includes('+')) {
+				// 	statusText = 'PLANNED';
+				// }
 
 				const teamOneSanitized = getTeamName(teamOne);
 				const teamTwoSanitized = getTeamName(teamTwo);

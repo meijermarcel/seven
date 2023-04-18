@@ -1,8 +1,11 @@
 <script lang="ts">
 	import type { Game } from "$lib/types";
+    import GameCardTeam from "$lib/components/game-card-team/GameCardTeam.svelte";
 
     export let game: Game;
     export let memberName: string;
+
+    $: opposingMember = game.homeTeam.memberName === memberName ? game.awayTeam.memberName : game.homeTeam.memberName;
 </script>
 
 <style>
@@ -16,75 +19,39 @@
         font-size: 12px;
     }
 
-    .team-row {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .team-info {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .team-logo {
-        margin-right: 5px;
-    }
-
-    .team-name {
-        font-weight: 600;
-    }
-
-    .team-name.active {
-        color: var(--primary-color);
-    }
-
-    .team-score {
-        font-weight: bold;
-    }
-
     .status {
         font-weight: 600;
         color: gray;
+    }
+    
+    .opposing {
+        /* font-style: italic; */
+        color: gray;
+    }
+
+    .bottom {
+        border-top: 1px solid lightgray;
+        font-size: 10px;
+        padding-top: 5px;
+    }
+
+    .in-progress {
+        color: var(--green);
     }
 </style>
 
 { #if game }
     <div class="card">
-        <div class="team-row">
-            <div class="team-info">
-                <div class="team-logo">
-                    <img height="10px" src="{game.awayTeam.logoSrc}" alt="" />
-                </div>
-                <div class="team-name" class:active={memberName === game.awayTeam.memberName}>
-                    { game.awayTeam.name }
-                </div>
+        <GameCardTeam team={game.homeTeam} showScore={game.showScore} memberName={memberName} />
+        <GameCardTeam team={game.awayTeam} showScore={game.showScore} memberName={memberName} />
+        
+        <div class="bottom">
+            <div class="status" class:in-progress={game.status==='IN PROGRESS'}>
+                { game.status }
             </div>
-            { #if game.showScore }
-                <div class="team-score">
-                    { game.awayTeam.score }
-                </div>
-            { /if }
-        </div>
-        <div class="team-row">
-            <div class="team-info">
-                <div class="team-logo">
-                    <img height="10px" src="{game.homeTeam.logoSrc}" alt="" />
-                </div>
-                <div class="team-name" class:active={memberName === game.homeTeam.memberName}>
-                    { game.homeTeam.name }
-                </div>
+            <div class="opposing">
+                Against { opposingMember }
             </div>
-            { #if game.showScore }
-                <div class="team-score">
-                    { game.homeTeam.score }
-                </div>
-            { /if }
-        </div>
-        <div class="status">
-            { game.status }
         </div>
     </div>
 { /if }
