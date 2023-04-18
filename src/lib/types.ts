@@ -9,7 +9,7 @@ export class MemberStanding {
 	gamesBehind = 0;
 	runsScored = 0;
 	diff = 0;
-	collapsed = false;
+	collapsed = true;
 	teams: Team[] = [];
 	gamesToday: Game[] = [];
 
