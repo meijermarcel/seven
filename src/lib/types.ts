@@ -12,6 +12,8 @@ export class MemberStanding {
 	collapsed = true;
 	teams: Team[] = [];
 	gamesToday: Game[] = [];
+	dailyWins = 0;
+	dailyLosses = 0;
 
 	constructor(name: string) {
 		this.name = name;
@@ -32,6 +34,7 @@ export class Game {
 	homeTeam = new GameTeam('', '');
 	status = '';
 	showScore = true;
+	outcome = '';
 }
 
 export class GameTeam {
