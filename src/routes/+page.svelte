@@ -11,7 +11,6 @@
     .container {
         display: flex;
         flex-direction: column;
-        /* gap: 2rem; */
     }
 
     h3 {
@@ -32,6 +31,10 @@
         gap: 1rem;
         border-bottom: 2px solid lightgray;
         padding: 1rem 0;
+    }
+
+    .member:first-child {
+        border-top: 2px solid lightgray;
     }
 
     .member > * {
@@ -77,6 +80,16 @@
         grid-template-columns: 1fr 1fr;
         grid-gap: 10px;
     }
+
+    .daily-record {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .daily-record p {
+        margin: 0;
+    }
 </style>
 
 <div class="container">
@@ -95,6 +108,9 @@
             </div>
             { #if !member.collapsed }
                 <div class="team-container" transition:slide={{ duration: 150 }}>
+                    <div class="daily-record">
+                        <p>{member.dailyWins} - {member.dailyLosses}</p>
+                    </div>
                     <div class="games-container">
                         { #each member.gamesToday as game }
                             <GameCard {game} memberName={member.name} />

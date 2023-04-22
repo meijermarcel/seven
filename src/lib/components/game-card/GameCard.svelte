@@ -17,6 +17,15 @@
         background-color: white;
         border-radius: 7px;
         font-size: 12px;
+        border: 2px solid lightgray;
+    }
+
+    .card.win {
+        border-color: green;
+    }
+
+    .card.loss {
+        border-color: red;
     }
 
     .status {
@@ -41,7 +50,7 @@
 </style>
 
 { #if game }
-    <div class="card">
+    <div class="card" class:win={game.outcome==='win'} class:loss={game.outcome==='loss'}>
         <GameCardTeam team={game.homeTeam} showScore={game.showScore} memberName={memberName} />
         <GameCardTeam team={game.awayTeam} showScore={game.showScore} memberName={memberName} />
         
@@ -50,7 +59,7 @@
                 { game.status }
             </div>
             <div class="opposing">
-                Against { opposingMember }
+                vs { opposingMember }
             </div>
         </div>
     </div>
