@@ -203,6 +203,7 @@ export const load = async () => {
 					awayGame.homeTeam = game.homeTeam;
 					awayGame.status = game.status;
 					awayGame.outcome = awayOutcome;
+					awayGame.showScore = game.showScore;
 					// find away team in member's teams
 					awayTeamMember.gamesToday.push(awayGame);
 				}
