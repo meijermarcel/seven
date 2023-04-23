@@ -134,7 +134,9 @@ export const load = async () => {
 				const teamTwoScore = $(element).find('.score-team-score').eq(1).text();
 
 				let statusText = $(element).find('.score-game-info').eq(0).find('span').text().trim();
-				if (statusText.includes('+') || statusText.includes('-')) {
+				if (statusText === '-') {
+					statusText = 'IN PROGRESS';
+				} else if (statusText.includes('+') || statusText.includes('-')) {
 					// split after first 8 characters
 					statusText = 'SCHEDULED';
 				}
@@ -149,7 +151,7 @@ export const load = async () => {
 					teamOneScore && teamOneScore !== '-' ? parseInt(teamOneScore) : undefined;
 				game.homeTeam.score =
 					teamTwoScore && teamTwoScore !== '-' ? parseInt(teamTwoScore.trim()) : undefined;
-				game.status = statusText === '-' ? 'IN PROGRESS' : statusText;
+				game.status = statusText;
 				game.showScore = shouldShowScore(game);
 
 				let awayOutcome = 'tbd';
@@ -161,26 +163,29 @@ export const load = async () => {
 						const awayTeamMember = standings.find((member) =>
 							member.teams.find((team) => team.name === teamOneSanitized)
 						);
-						if (awayTeamMember) {
-							if (game.awayTeam.score > game.homeTeam.score) {
-								awayTeamMember.dailyWins++;
-								awayOutcome = 'win';
-							} else {
-								awayTeamMember.dailyLosses++;
-								awayOutcome = 'loss';
-							}
-						}
 
 						const homeTeamMember = standings.find((member) =>
 							member.teams.find((team) => team.name === teamTwoSanitized)
 						);
-						if (homeTeamMember) {
-							if (game.homeTeam.score > game.awayTeam.score) {
-								homeTeamMember.dailyWins++;
-								homeOutcome = 'win';
-							} else {
+
+						if (awayTeamMember && homeTeamMember) {
+							if (game.awayTeam.score > game.homeTeam.score) {
+								awayTeamMember.dailyWins++;
 								homeTeamMember.dailyLosses++;
+								awayOutcome = 'win';
 								homeOutcome = 'loss';
+							} else {
+								awayTeamMember.dailyLosses++;
+								homeTeamMember.dailyWins++;
+								awayOutcome = 'loss';
+								homeOutcome = 'win';
+							}
+							if (awayTeamMember?.name === homeTeamMember?.name) {
+								awayOutcome = 'win';
+								homeOutcome = 'win';
+								// decrement losses for member since a game is always a win when a member
+								// has both teams
+								awayTeamMember.dailyLosses--;
 							}
 						}
 					}
@@ -192,9 +197,14 @@ export const load = async () => {
 				);
 				if (awayTeamMember) {
 					game.awayTeam.memberName = awayTeamMember.name;
-					game.outcome = awayOutcome;
+					// create new game so we don't overwrite the original
+					const awayGame = new Game();
+					awayGame.awayTeam = game.awayTeam;
+					awayGame.homeTeam = game.homeTeam;
+					awayGame.status = game.status;
+					awayGame.outcome = awayOutcome;
 					// find away team in member's teams
-					awayTeamMember.gamesToday.push(game);
+					awayTeamMember.gamesToday.push(awayGame);
 				}
 
 				// find home team in standings
@@ -207,7 +217,7 @@ export const load = async () => {
 					if (awayTeamMember && awayTeamMember.name !== homeTeamMember.name) {
 						game.outcome = homeOutcome;
 						// find home team in member's teams
-						homeTeamMember.gamesToday.push(game);
+						homeTeamMember.gamesToday.push(JSON.parse(JSON.stringify(game)));
 					} else if (awayTeamMember && game.outcome === 'loss') {
 						// if member has both away and home team, find game in awayTeam member's gamesToday and set outcome to win
 						awayTeamMember.gamesToday.forEach((game) => {
