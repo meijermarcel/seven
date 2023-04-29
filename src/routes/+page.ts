@@ -230,6 +230,8 @@ export const load = async () => {
 				}
 			});
 
+			console.log(standings);
+
 			return { members: standings };
 		});
 	});

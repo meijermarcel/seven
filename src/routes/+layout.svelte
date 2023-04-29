@@ -12,7 +12,7 @@
 
     nav {
         display: flex;
-        gap: 1.5rem;
+        gap: 1rem;
         align-items: center;
         margin: 1rem 0.5rem;
     }
@@ -32,7 +32,7 @@
 
     .title {
         font-weight: 700;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
     }
 
     footer {
@@ -56,6 +56,7 @@
 <nav>
     <div class="title">MLB 2023</div>
     <a href="/" class:active={$page.url.pathname==='/'}>Standings</a>
+    <a href="/picks" class:active={$page.url.pathname==='/picks'}>Picks</a>
     <a href="/stats" class:active={$page.url.pathname==='/stats'}>Stats</a>
 </nav>
 

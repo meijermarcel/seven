@@ -64,3 +64,41 @@ export class MemberStat {
 		this.name = name;
 	}
 }
+
+export class OddsGame {
+	id = '';
+	sport_key = '';
+	sport_title = '';
+	commence_time = new Date();
+	home_team = '';
+	away_team = '';
+	bookmakers: OddsBookmaker[] = [];
+}
+
+export class OddsBookmaker {
+	key = '';
+	title = '';
+	last_update = new Date();
+	markets: OddsMarket[] = [];
+}
+
+export class OddsMarket {
+	key = '';
+	last_update = new Date();
+	outcomes: OddsOutcome[] = [];
+}
+
+export class OddsOutcome {
+	name = '';
+	price = 0;
+	point = 0;
+}
+
+export class MLBGame {
+	home_team = '';
+	away_team = '';
+	home_spread = 0;
+	away_spread = 0;
+	total = 0;
+	date_time = new Date();
+}
