@@ -2,7 +2,7 @@
     "crons": [
       {
         "path": "/api/store-game-odds",
-        "schedule": "30 15 * * *"
+        "schedule": "32 11 * * *"
       }
     ]
 }
