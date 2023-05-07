@@ -55,9 +55,9 @@
 
 <nav>
     <div class="title">MLB 2023</div>
-    <a href="/" class:active={$page.url.pathname==='/'}>Standings</a>
+    <a href="/" data-sveltekit-preload-data class:active={$page.url.pathname==='/'}>Standings</a>
     <!-- <a href="/picks" class:active={$page.url.pathname==='/picks'}>Picks</a> -->
-    <a href="/stats" class:active={$page.url.pathname==='/stats'}>Stats</a>
+    <a href="/stats" data-sveltekit-preload-data class:active={$page.url.pathname==='/stats'}>Stats</a>
 </nav>
 
 <div class="container">

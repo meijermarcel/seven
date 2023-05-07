@@ -10,6 +10,13 @@
         // use dayjs
         return dayjs(date).format('ddd MMM D, h:mm A');
     }
+
+    function addPlusSign(spread: number) {
+        if (spread > 0) {
+            return `+${spread}`;
+        }
+        return spread;
+    }
 </script>
 
 <style>
@@ -79,12 +86,12 @@
             <div class="game-lines">
                 <div>
                     <div class="team-name">{game.away_team}</div>
-                    <div class="line">{game.away_spread}</div>
+                    <div class="line">{addPlusSign(game.away_spread)}</div>
                     <div class="line">O{game.total}</div>
                 </div>
                 <div>
                     <div class="team-name">{game.home_team}</div>
-                    <div class="line">{game.home_spread}</div>
+                    <div class="line">{addPlusSign(game.home_spread)}</div>
                     <div class="line">U{game.total}</div>
                 </div>
             </div>
