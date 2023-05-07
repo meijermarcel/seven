@@ -72,18 +72,17 @@ export async function GET() {
 
 	for (const member of memberData) {
 		// check if member exists in db
-		membersAndRecords.findOne({ name: member.name }).then(async (result) => {
-			if (result) {
-				// member exists, update records
-				await membersAndRecords.updateOne(
-					{ name: member.name },
-					{ $push: { records: member.records[0] } }
-				);
-			} else {
-				// member does not exist, insert member
-				await membersAndRecords.insertOne(member);
-			}
-		});
+		const result = await membersAndRecords.findOne({ name: member.name });
+		if (result) {
+			// member exists, update records
+			await membersAndRecords.updateOne(
+				{ name: member.name },
+				{ $push: { records: member.records[0] } }
+			);
+		} else {
+			// member does not exist, insert member
+			await membersAndRecords.insertOne(member);
+		}
 	}
 
 	return json(memberData);
