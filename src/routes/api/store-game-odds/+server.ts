@@ -47,7 +47,8 @@ export async function GET() {
 			home_spread,
 			away_spread,
 			total,
-			date_time
+			date_time,
+			selections: []
 		};
 	});
 
