@@ -1,4 +1,4 @@
-import { Game, GameTeam, MemberStanding } from '../lib/types';
+import { Game, GameTeam, MemberStanding } from '$lib/types';
 import axios from 'axios';
 import cheerio from 'cheerio';
 import { members } from '$lib/global-var';
