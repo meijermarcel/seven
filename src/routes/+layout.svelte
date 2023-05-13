@@ -12,7 +12,7 @@
 
     nav {
         display: flex;
-        gap: 1rem;
+        gap: 0.5rem;
         align-items: center;
         margin: 1rem 0.5rem;
     }
@@ -56,18 +56,20 @@
 <nav>
     <div class="title">MLB 2023</div>
     <a href="/" data-sveltekit-preload-data class:active={$page.url.pathname==='/'}>Standings</a>
+    <a href="/trends" data-sveltekit-preload-data class:active={$page.url.pathname==='/trends'}>Trends</a>
     <!-- <a href="/picks" class:active={$page.url.pathname==='/picks'}>Picks</a> -->
     <a href="/stats" data-sveltekit-preload-data class:active={$page.url.pathname==='/stats'}>Stats</a>
 </nav>
 
 <div class="container">
-{#if $navigating}
+<!-- {#if $navigating}
     <div class="loading">
         <SyncLoader size="60" color="#ff3e00" unit="px" duration="1s" />
     </div>
 {:else}
     <slot />
-{/if}
+{/if} -->
+    <slot />
 </div>
 
 
