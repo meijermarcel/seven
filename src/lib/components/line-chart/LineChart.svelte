@@ -25,8 +25,8 @@
     export let labels: any[] = [];
     export let datasets: any[] = [];
     const options = {
-        responsive: true,
-        maintainAspectRatio: false,
+        // responsive: true,
+        // maintainAspectRatio: false,
         scales: {
             // hide x-axis labels and lines
             x: {
@@ -48,4 +48,4 @@
     }
 </script>
 
-<Line data={chartData} height="500" {options}></Line>
+<Line data={chartData} height="450" {options}></Line>

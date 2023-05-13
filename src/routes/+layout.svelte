@@ -62,13 +62,14 @@
 </nav>
 
 <div class="container">
-{#if $navigating}
+<!-- {#if $navigating}
     <div class="loading">
         <SyncLoader size="60" color="#ff3e00" unit="px" duration="1s" />
     </div>
 {:else}
     <slot />
-{/if}
+{/if} -->
+    <slot />
 </div>
 
 
