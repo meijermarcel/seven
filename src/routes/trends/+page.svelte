@@ -1,14 +1,22 @@
 <script lang="ts">
 	import type { PageData } from "./$types";
     import LineChart from "$lib/components/line-chart/LineChart.svelte";
+    import DayRangeSelector from "$lib/components/day-range-selector/DayRangeSelector.svelte";
 
     export let data: PageData;
+    let days = 3;
+    const colors = ['#ff3e00', '#001524', '#15616D', '#08B2E3', '#8FC93A'];
 
     $: ({members} = data);
 
     $: [labels, datasets] = getChartData(members);
 
-    const colors = ['#ff3e00', '#001524', '#15616D', '#08B2E3', '#8FC93A'];
+    $: trends = getTrends(members, days);
+
+    function setDays(days: number) {
+        days = days;
+        // trends = getTrends(members, days);
+    }
 
     function getChartData(members: any[]) {
         if (members === undefined) return [[], []];
@@ -40,16 +48,77 @@
         return [labels, datasets];
     }
 
+    function getTrends(members: any[], days: number) {
+        // find number of wins last 3 days for each member
+        let trends = [];
+        for (let member of members) {
+            if (days > member.records.length - 1) {
+                days = member.records.length - 1;
+            }
+            let wins = member.records[member.records.length - 1].wins - member.records[member.records.length - days - 1].wins;
+            let losses = member.records[member.records.length - 1].losses - member.records[member.records.length - days - 1].losses;
+            let gamesPlayed = wins + losses;
+            trends.push({
+                name: member.name,
+                wins: wins,
+                losses: losses,
+                gamesPlayed: gamesPlayed,
+            });
+        }
+        // sort by wins
+        trends.sort((a, b) => {
+            return b.wins - a.wins;
+        });
+        return trends;
+    }
+
 </script>
 
-<LineChart {labels} {datasets} ></LineChart>
+<style>
+    h3:first-child {
+        margin-top: 0;
+    }
 
-<!-- {#each members as member}
-    <div>
-        <div>{member.name}</div>
-        {#each member.records as record}
-            <div>{record.wins} - {record.losses}</div>
-        {/each}
+    table {
+        text-align: center;
+        width: 100%;
+    }
+
+    td {
+        padding: 5px 0;
+    }
+
+    tr {
+        border-bottom: 1px solid gray;
+    }
+
+    .card {
+        background-color: whitesmoke;
+        border-radius: 5px;
+        padding: 1rem;
+    }
+
+    .trend-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+</style>
+
+<div class="trend-info">
+    <DayRangeSelector bind:days={days}></DayRangeSelector>
+    <div class="card">
+        <table>
+            {#each trends as member}
+                <tr>
+                    <td class="font-weight-bold text-left">{member.name}</td>
+                    <td>{member.wins} - {member.losses}</td>
+                    <td>{member.gamesPlayed} GP</td>
+                </tr>
+            {/each}
+        </table>
     </div>
+</div>
 
-{/each} -->
+<h3>Total Wins</h3>
+<LineChart {labels} {datasets} ></LineChart>
