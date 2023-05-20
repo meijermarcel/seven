@@ -1,66 +1,57 @@
 <script lang="ts">
-	import type { Stats, MemberStat } from "$lib/types";
-
+	import type { Stats, MemberStat, SelectValue } from "$lib/types";
+    import ItemSelect from "$lib/components/item-select/ItemSelect.svelte";
+    import StatView from "$lib/components/stat-view/StatView.svelte";
     export let data: Stats;
 
     let selectedStat = "hr" as const;
 
-    const availableStats = [
+    const availableStats: SelectValue[] = [
         { label: "HR", value: "hr" },
         { label: "RBI", value: "rbi" },
         { label: "AVG", value: "avg" },
-    ] as const;
+    ];
 
     // function to assign selectedStat and sort members by that stat
-    function sortMembersByStat(stat: any) {
-        selectedStat = stat;
-        data.members = data.members.sort((a, b) => b[selectedStat] - a[selectedStat]);
-    }
+    // function sortMembersByStat(stat: any) {
+    //     selectedStat = stat;
+    //     data.members = data.members.sort((a, b) => b.batting[selectedStat] - a.batting[selectedStat]);
+    // }
 
 </script>
 
 <style>
-    
-    table {
-        width: 100%;
-        font-size: 24px;
-        border-collapse: collapse;
+    .stat-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    td {
-        border-bottom: 1px solid lightgray;
-        padding: 5px;
+    h3 {
+        margin: 0;
+        color: gray;
     }
-
-    .stat-picker {
-        overflow-x: auto;
-    }
-
-    .stat-picker button {
-        border-radius: 10px;
-        margin: 0 0.5rem 0.5rem 0.5rem;
-        padding: 7px 15px;
-        border: none;
-        background-color: lightgray;
-        font-size: 20px;
-        font-weight: bold;
-        color: black;
-    }
-
-    .stat-picker button.selected {
-        background-color: var(--primary-color);
-        color: white;
-    }
-    
 </style>
 
-<div class="stat-picker">
+<div class="stat-list">
+    <h3>Batting</h3>
+    {#each data.batting as stat}
+        <StatView {stat}></StatView>
+    {/each}
+    <h3>Pitching</h3>
+    {#each data.pitching as stat}
+        <StatView {stat}></StatView>
+    {/each}
+</div>
+
+<!-- <div class="stat-picker">
     { #each availableStats as stat }
         <button class:selected="{selectedStat === stat.value}" on:click={() => sortMembersByStat(stat.value)}>{ stat.label }</button>
     { /each }
-</div>
+</div> -->
 
-<table>
+
+<!-- <table>
     <thead>
     </thead>
     <tbody>
@@ -68,8 +59,8 @@
             <tr>
                 <td>{ i + 1 }</td>
                 <td>{ member.name }</td>
-                <td class="text-center">{ member[selectedStat] }</td>
+                <td class="text-center">{ member.batting[selectedStat] }</td>
             </tr>
         { /each }
     </tbody>
-</table>
+</table> -->

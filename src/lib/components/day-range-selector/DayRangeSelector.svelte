@@ -1,7 +1,7 @@
 <script lang="ts">
     export let days: number = 3;
 
-    const dayOptions = [3, 5, 7];
+    const dayOptions = [1, 3, 5, 7];
 
     function setDays(newValue: number) {
         days = newValue;
