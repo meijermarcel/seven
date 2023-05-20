@@ -52,7 +52,7 @@
 
     .member {
         display: flex;
-        border-bottom: 2px solid lightgray;
+        border-bottom: 1px solid var(--accent-color);
         padding: 1rem 0;
         align-items: center;
     }
@@ -86,6 +86,7 @@
     .member-value {
         flex: 1;
         text-align: center;
+        font-weight: bold;
     }
 
 </style>

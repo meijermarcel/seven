@@ -48,8 +48,8 @@ export const load = async () => {
 			const rbi = parseInt($(element).find('td').eq(10).text());
 			const avg = parseFloat($(element).find('td').eq(15).text());
 			const sb = parseFloat($(element).find('td').eq(11).text());
-			const walks = parseFloat($(element).find('td').eq(12).text());
-			const strikeouts = parseFloat($(element).find('td').eq(13).text());
+			const walks = parseFloat($(element).find('td').eq(13).text());
+			const strikeouts = parseFloat($(element).find('td').eq(14).text());
 			const obp = parseFloat($(element).find('td').eq(16).text());
 			const slugging = parseFloat($(element).find('td').eq(17).text());
 			const ops = parseFloat($(element).find('td').eq(18).text());
