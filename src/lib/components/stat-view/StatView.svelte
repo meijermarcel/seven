@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { StatField } from "$lib/types";
+	import StatModal from "../stat-modal/StatModal.svelte";
 
     export let stat: StatField;
 
@@ -41,7 +42,12 @@
     }
 </style>
 
-<div class="stat-container">
+{#if expanded}
+    <StatModal {stat} bind:expanded={expanded}></StatModal>
+{/if}
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="stat-container" on:click={() => expanded = !expanded}>
     <div class="stat-name">{stat.name}</div>
     {#if stat.members.length > 0}
         <div class="leader">

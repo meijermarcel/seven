@@ -58,6 +58,12 @@ export class Stats {
 		this.batting.push(new StatField('Home Runs'));
 		this.batting.push(new StatField('RBI'));
 		this.batting.push(new StatField('AVG'));
+		this.batting.push(new StatField('OBP'));
+		this.batting.push(new StatField('OPS'));
+		this.batting.push(new StatField('Slugging'));
+		this.batting.push(new StatField('Stolen Bases'));
+		this.batting.push(new StatField('Walks'));
+		this.batting.push(new StatField('Strikeouts'));
 
 		this.pitching.push(new StatField('Wins'));
 		this.pitching.push(new StatField('Losses'));

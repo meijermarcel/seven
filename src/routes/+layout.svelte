@@ -6,7 +6,7 @@
 <style>
     .container {
         padding: 1rem 0.5rem;
-        max-width: 600px;
+        max-width: 400px;
         margin: 1rem auto;
     }
 

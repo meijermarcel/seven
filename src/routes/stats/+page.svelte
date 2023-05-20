@@ -29,6 +29,7 @@
 
     h3 {
         margin: 0;
+        color: gray;
     }
 </style>
 

@@ -1,4 +1,4 @@
-import { MemberStat, StatField, Stats } from '$lib/types';
+import { StatField, Stats } from '$lib/types';
 import axios from 'axios';
 import cheerio from 'cheerio';
 import { members } from '$lib/global-var';
@@ -13,15 +13,6 @@ const pitchingURL =
 const resetStats = () => {
 	stats = new Stats();
 };
-// const resetStats = () => {
-// 	stats = [
-// 		new MemberStat('Marcel'),
-// 		new MemberStat('Nate'),
-// 		new MemberStat('Bob'),
-// 		new MemberStat('Tom'),
-// 		new MemberStat('Carter')
-// 	];
-// };
 
 function findAndAddStat(stats: StatField[], memberName: string, statName: string, value: number) {
 	const statField = stats.find((stat) => stat.name === statName);
@@ -30,6 +21,15 @@ function findAndAddStat(stats: StatField[], memberName: string, statName: string
 		if (memberStat) {
 			memberStat.value += value;
 		}
+	}
+}
+
+function averageStatField(stats: StatField[], name: string) {
+	const statField = stats.find((stat) => stat.name === name);
+	if (statField) {
+		statField.members.forEach((member) => {
+			member.value = parseFloat((member.value / 6).toFixed(3));
+		});
 	}
 }
 
@@ -47,6 +47,12 @@ export const load = async () => {
 			const hr = parseInt($(element).find('td').eq(9).text());
 			const rbi = parseInt($(element).find('td').eq(10).text());
 			const avg = parseFloat($(element).find('td').eq(15).text());
+			const sb = parseFloat($(element).find('td').eq(11).text());
+			const walks = parseFloat($(element).find('td').eq(12).text());
+			const strikeouts = parseFloat($(element).find('td').eq(13).text());
+			const obp = parseFloat($(element).find('td').eq(16).text());
+			const slugging = parseFloat($(element).find('td').eq(17).text());
+			const ops = parseFloat($(element).find('td').eq(18).text());
 
 			// remove leading and trailing whitespace from team name
 			const teamSanitized = team.trim();
@@ -58,20 +64,28 @@ export const load = async () => {
 				findAndAddStat(stats.batting, member.name, 'Home Runs', hr);
 				findAndAddStat(stats.batting, member.name, 'RBI', rbi);
 				findAndAddStat(stats.batting, member.name, 'AVG', avg);
+				findAndAddStat(stats.batting, member.name, 'Stolen Bases', sb);
+				findAndAddStat(stats.batting, member.name, 'Walks', walks);
+				findAndAddStat(stats.batting, member.name, 'Strikeouts', strikeouts);
+				findAndAddStat(stats.batting, member.name, 'OBP', obp);
+				findAndAddStat(stats.batting, member.name, 'Slugging', slugging);
+				findAndAddStat(stats.batting, member.name, 'OPS', ops);
 			}
 		});
 
-		// divide avg by 6 and round to 3 decimal places
-		const avg = stats.batting.find((stat) => stat.name === 'AVG');
-		if (avg) {
-			avg.members.forEach((member) => {
-				member.value = parseFloat((member.value / 6).toFixed(3));
-			});
-		}
+		// divide ops by 6 and round to 3 decimal places
+		averageStatField(stats.batting, 'OPS');
+		averageStatField(stats.batting, 'AVG');
+		averageStatField(stats.batting, 'Slugging');
+		averageStatField(stats.batting, 'OBP');
 
 		// sort all batting stats
 		stats.batting.forEach((stat) => {
-			stat.members.sort((a, b) => b.value - a.value);
+			if (stat.name === 'Strikeouts') {
+				stat.members.sort((a, b) => a.value - b.value);
+			} else {
+				stat.members.sort((a, b) => b.value - a.value);
+			}
 		});
 
 		return axios.get(pitchingURL).then((response) => {
@@ -108,13 +122,7 @@ export const load = async () => {
 				}
 			});
 
-			// divide era by 6 and round to 3 decimal places
-			const era = stats.pitching.find((stat) => stat.name === 'ERA');
-			if (era) {
-				era.members.forEach((member) => {
-					member.value = parseFloat((member.value / 6).toFixed(3));
-				});
-			}
+			averageStatField(stats.pitching, 'ERA');
 
 			// sort all pitching stats
 			stats.pitching.forEach((stat) => {
@@ -124,8 +132,6 @@ export const load = async () => {
 					stat.members.sort((a, b) => a.value - b.value);
 				}
 			});
-
-			console.log(stats);
 
 			return {
 				...stats
