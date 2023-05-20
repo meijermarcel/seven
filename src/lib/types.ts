@@ -51,18 +51,64 @@ export class GameTeam {
 }
 
 export class Stats {
-	members: MemberStat[] = [];
+	batting: StatField[] = [];
+	pitching: StatField[] = [];
+
+	constructor() {
+		this.batting.push(new StatField('Home Runs'));
+		this.batting.push(new StatField('RBI'));
+		this.batting.push(new StatField('AVG'));
+
+		this.pitching.push(new StatField('Wins'));
+		this.pitching.push(new StatField('Losses'));
+		this.pitching.push(new StatField('ERA'));
+		this.pitching.push(new StatField('Saves'));
+		this.pitching.push(new StatField('Hits'));
+		this.pitching.push(new StatField('Home Runs'));
+		this.pitching.push(new StatField('Walks'));
+		this.pitching.push(new StatField('Strikeouts'));
+	}
 }
 
-export class MemberStat {
+export class StatField {
 	name = '';
-	hr = 0;
-	rbi = 0;
-	avg = 0;
+	members: MemberStat[] = [
+		new MemberStat('Marcel'),
+		new MemberStat('Nate'),
+		new MemberStat('Bob'),
+		new MemberStat('Tom'),
+		new MemberStat('Carter')
+	];
 
 	constructor(name: string) {
 		this.name = name;
 	}
+}
+
+export class MemberStat {
+	name = '';
+	value = 0;
+
+	constructor(name: string) {
+		this.name = name;
+	}
+}
+
+export class BattingStat {
+	hr = 0;
+	rbi = 0;
+	avg = 0;
+}
+
+export class PitchingStat {
+	wins = 0;
+	losses = 0;
+	era = 0;
+	saves = 0;
+	hits = 0;
+	hr = 0;
+	bb = 0;
+	strikeouts = 0;
 }
 
 export class OddsGame {
@@ -101,4 +147,9 @@ export class MLBGame {
 	away_spread = 0;
 	total = 0;
 	date_time = new Date();
+}
+
+export class SelectValue {
+	label = '';
+	value = '';
 }
