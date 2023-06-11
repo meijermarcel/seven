@@ -7,14 +7,24 @@
     .container {
         padding: 1rem 0.5rem;
         max-width: 400px;
-        margin: 1rem auto;
+        margin: 4rem auto;
     }
 
     nav {
         display: flex;
         gap: 0.5rem;
         align-items: center;
-        margin: 1rem 0.5rem;
+        justify-content: space-between;
+        margin: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: whitesmoke;
+        border: 1px solid var(--primary-color);
+        padding: 0.5rem;
+        border-radius: 12px;
+        box-shadow: #ff400046 0px 3px 8px;
     }
 
     a {
