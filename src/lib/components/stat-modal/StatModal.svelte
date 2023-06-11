@@ -28,6 +28,7 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        max-width: 400px;
     }
 
     .modal-header {
