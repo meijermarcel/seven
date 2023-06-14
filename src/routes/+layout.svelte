@@ -10,6 +10,10 @@
         margin: 4rem auto;
     }
 
+    .outer {
+        margin: 0 auto;
+    }
+
     nav {
         display: flex;
         gap: 0.5rem;
@@ -25,7 +29,7 @@
         padding: 0.5rem;
         border-radius: 12px;
         box-shadow: #ff400046 0px 3px 8px;
-        max-width: 400px;
+        max-width: 365px;
         margin: 1rem auto;
     }
 
