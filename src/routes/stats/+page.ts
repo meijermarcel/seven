@@ -133,6 +133,19 @@ export const load = async () => {
 				}
 			});
 
+			// filter out any stats where members have a NaN value
+			stats.batting = stats.batting.filter((stat) => {
+				return stat.members.every((member) => {
+					return !isNaN(member.value);
+				});
+			});
+
+			stats.pitching = stats.pitching.filter((stat) => {
+				return stat.members.every((member) => {
+					return !isNaN(member.value);
+				});
+			});
+
 			return {
 				...stats
 			};

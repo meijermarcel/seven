@@ -1,23 +1,7 @@
 <script lang="ts">
-	import type { Stats, MemberStat, SelectValue } from "$lib/types";
-    import ItemSelect from "$lib/components/item-select/ItemSelect.svelte";
+	import type { Stats } from "$lib/types";
     import StatView from "$lib/components/stat-view/StatView.svelte";
     export let data: Stats;
-
-    let selectedStat = "hr" as const;
-
-    const availableStats: SelectValue[] = [
-        { label: "HR", value: "hr" },
-        { label: "RBI", value: "rbi" },
-        { label: "AVG", value: "avg" },
-    ];
-
-    // function to assign selectedStat and sort members by that stat
-    // function sortMembersByStat(stat: any) {
-    //     selectedStat = stat;
-    //     data.members = data.members.sort((a, b) => b.batting[selectedStat] - a.batting[selectedStat]);
-    // }
-
 </script>
 
 <style>
@@ -38,29 +22,8 @@
     {#each data.batting as stat}
         <StatView {stat}></StatView>
     {/each}
-    <h3>Pitching</h3>
+    <!-- <h3>Pitching</h3>
     {#each data.pitching as stat}
         <StatView {stat}></StatView>
-    {/each}
+    {/each} -->
 </div>
-
-<!-- <div class="stat-picker">
-    { #each availableStats as stat }
-        <button class:selected="{selectedStat === stat.value}" on:click={() => sortMembersByStat(stat.value)}>{ stat.label }</button>
-    { /each }
-</div> -->
-
-
-<!-- <table>
-    <thead>
-    </thead>
-    <tbody>
-        { #each data.members as member, i }
-            <tr>
-                <td>{ i + 1 }</td>
-                <td>{ member.name }</td>
-                <td class="text-center">{ member.batting[selectedStat] }</td>
-            </tr>
-        { /each }
-    </tbody>
-</table> -->

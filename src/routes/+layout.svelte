@@ -29,7 +29,7 @@
         padding: 0.5rem;
         border-radius: 12px;
         box-shadow: #ff400046 0px 3px 8px;
-        max-width: 365px;
+        max-width: 90vw;
         margin: 1rem auto;
     }
 
