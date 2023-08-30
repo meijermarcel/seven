@@ -6,14 +6,9 @@ export class MemberStanding {
 	name = '';
 	wins = 0;
 	losses = 0;
-	gamesBehind = 0;
-	runsScored = 0;
-	diff = 0;
-	collapsed = true;
 	teams: Team[] = [];
-	gamesToday: Game[] = [];
-	dailyWins = 0;
-	dailyLosses = 0;
+	gamesBehind = 0;
+	collapsed = true;
 
 	constructor(name: string) {
 		this.name = name;
@@ -24,8 +19,6 @@ export class Team {
 	name = '';
 	wins = 0;
 	losses = 0;
-	runsScored = 0;
-	diff = 0;
 	img = '';
 }
 

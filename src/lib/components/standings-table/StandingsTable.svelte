@@ -44,8 +44,6 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td>RS</td>
-                <td>Diff</td>
             </tr>
         </thead>
         <tbody>
@@ -53,20 +51,16 @@
                 <tr>
                     <td>
                         <div class="name">
-                            <img height="25px" src="{team.img}" alt="" />
+                            <!-- <img height="25px" src="{team.img}" alt="" /> -->
                             <div>{ team.name }</div>
                         </div>
                     </td>
                     <td>{ team.wins } - { team.losses }</td>
-                    <td>{ team.runsScored }</td>
-                    <td>{ team.diff }</td>
                 </tr>
             {/each}
             <tr class="totals">
                 <td class="text-left">{ member.wins + member.losses } GP</td>
                 <td>{ member.wins } - { member.losses }</td>
-                <td>{ member.runsScored }</td>
-                <td>{ member.diff }</td>
             </tr>
         </tbody>
     </table>

@@ -1,22 +1,92 @@
 export const members = [
 	{
 		name: 'Marcel',
-		teams: ['Phillies', 'Mariners', 'Rays', 'Rockies', 'Athletics', 'Nationals']
+		teams: [
+			'North Carolina',
+			'Wake Forest',
+			'Minnesota',
+			'Purdue',
+			'Rutgers',
+			'BYU',
+			'Oklahoma',
+			'Texas',
+			'Arizona St.',
+			'UCLA',
+			'Alabama',
+			'Florida',
+			'South Carolina'
+		]
 	},
 	{
 		name: 'Nate',
-		teams: ['Yankees', 'Cardinals', 'Twins', 'Diamondbacks', 'Cubs', 'Tigers']
+		teams: [
+			'Louisville',
+			'Syracuse',
+			'Ohio State',
+			'Penn State',
+			'Kansas',
+			'Kansas State',
+			'Oklahoma State',
+			'Texas Tech',
+			'Arizona',
+			'California',
+			'Washington',
+			'LSU',
+			'Missouri'
+		]
 	},
 	{
 		name: 'Bob',
-		teams: ['Astros', 'Guardians', 'Blue Jays', 'Rangers', 'Giants', 'Reds']
+		teams: [
+			'Clemson',
+			'NC State',
+			'Virginia',
+			'Virginia Tech',
+			'Iowa',
+			'Michigan St.',
+			'Wisconsin',
+			'Baylor',
+			'Cincinnati',
+			'Colorado',
+			'USC',
+			'Ole Miss',
+			'Texas A&M'
+		]
 	},
 	{
 		name: 'Tom',
-		teams: ['Mets', 'Dodgers', 'Brewers', 'Angels', 'Red Sox', 'Royals']
+		teams: [
+			'Duke',
+			'Miami (Fla.)',
+			'Pittsburgh',
+			'Notre Dame',
+			'Illinois',
+			'Maryland',
+			'Michigan',
+			'Iowa St.',
+			'TCU',
+			'Utah',
+			'Washington St.',
+			'Kentucky',
+			'Vanderbilt'
+		]
 	},
 	{
 		name: 'Carter',
-		teams: ['Padres', 'Braves', 'Orioles', 'White Sox', 'Pirates', 'Marlins']
+		teams: [
+			'Florida State',
+			'Georgia Tech',
+			'Nebraska',
+			'Houston',
+			'UCF',
+			'West Virginia',
+			'Oregon',
+			'Oregon State',
+			'Arkansas',
+			'Auburn',
+			'Georgia',
+			'Miss. State',
+			'Tennessee'
+		]
 	}
 ];

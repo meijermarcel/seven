@@ -101,22 +101,13 @@
                     <h3>
                         <span class="position">{ i + 1 }</span>
                         { member.name }
-                        <span>{ i === 0 ? '👑' : i === 4 ? '🤡' : '' }</span>
+                        <!-- <span>{ i === 0 ? '👑' : i === 4 ? '🤡' : '' }</span> -->
                     </h3>
                     <div class="games-behind">{member.gamesBehind } GB</div>
                 </div>
             </div>
             { #if !member.collapsed }
                 <div class="team-container" transition:slide|local={{ duration: 150 }}>
-                <!-- <div class="team-container"> -->
-                    <div class="daily-record">
-                        <p>{member.dailyWins} - {member.dailyLosses}</p>
-                    </div>
-                    <div class="games-container">
-                        { #each member.gamesToday as game }
-                            <GameCard {game} memberName={member.name} />
-                        { /each }
-                    </div>
                     <StandingsTable {member} />
                 </div>
             { /if }
