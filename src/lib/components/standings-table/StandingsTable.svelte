@@ -51,7 +51,7 @@
                 <tr>
                     <td>
                         <div class="name">
-                            <!-- <img height="25px" src="{team.img}" alt="" /> -->
+                            <img height="25px" src="{team.img}" alt="" />
                             <div>{ team.name }</div>
                         </div>
                     </td>
