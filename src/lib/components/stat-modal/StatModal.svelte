@@ -92,8 +92,8 @@
 
 </style>
 
-<div class="shade" transition:fade={{ duration: 100 }}>
-    <div class="modal" transition:slide={{ duration: 300 }}>
+<div class="shade" transition:fade|global={{ duration: 100 }}>
+    <div class="modal" transition:slide|global={{ duration: 300 }}>
         <div class="modal-header">
             <h3>{stat.name}</h3>
             <div>
