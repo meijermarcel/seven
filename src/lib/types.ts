@@ -153,6 +153,12 @@ export class SelectValue {
 	value = '';
 }
 
+export class ScoreGames {
+	live_games: GameScore[] = [];
+	scheduled_games: GameScore[] = [];
+	final_games: GameScore[] = [];
+}
+
 export class GameScore {
 	away_team: GameTeam = new GameTeam();
 	home_team: GameTeam = new GameTeam();

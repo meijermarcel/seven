@@ -1,5 +1,21 @@
 <script lang="ts">
-    export let data: any;
+    import type { ScoreGames } from "$lib/types";
+    import ScoreCard from "$lib/components/score-card/ScoreCard.svelte";
+
+    export let data: ScoreGames;
 </script>
 
-<h5>SCores</h5>
+<style>
+    .game-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+</style>
+
+<h5>Live</h5>
+<div class="game-container">
+    {#each data.live_games as game}
+        <ScoreCard {game} />
+    {/each}
+</div>

@@ -3,7 +3,8 @@ import cheerio from 'cheerio';
 import type { GameScore } from '$lib/types';
 import { members } from '$lib/global-var';
 
-const url = 'https://www.cbssports.com/college-football/scoreboard/?layout=compact';
+const url =
+	'https://www.cbssports.com/college-football/scoreboard/FBS/2023/regular/1/?layout=compact';
 
 export const load = async () => {
 	return axios.get(url).then((response) => {
@@ -93,13 +94,20 @@ export const load = async () => {
 			}
 		});
 		// group games by live, scheduled, final
-		const liveGames = games.filter((game) => game.status === 'live');
-		const scheduledGames = games.filter((game) => game.status === 'scheduled');
-		const finalGames = games.filter(
+		const live_games = games.filter((game) => game.status === 'live');
+		const sheduled_games = games.filter((game) => game.status === 'scheduled');
+		const final_games = games.filter(
 			(game) => game.status !== 'live' && game.status !== 'scheduled'
 		);
-		console.log(liveGames);
-		console.log(scheduledGames);
-		console.log(finalGames);
+
+		console.log(live_games);
+		// console.log(sheduled_games);
+		// console.log(final_games);
+
+		return {
+			live_games,
+			sheduled_games,
+			final_games
+		};
 	});
 };
