@@ -9,11 +9,11 @@
     .game-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+        gap: 0.5rem;
     }
 </style>
 
-<h5>Live</h5>
+<h5>Final</h5>
 <div class="game-container">
     {#each data.final_games as game}
         <ScoreCard {game} />

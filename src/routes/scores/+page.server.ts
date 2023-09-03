@@ -6,6 +6,21 @@ import { members } from '$lib/global-var';
 const url =
 	'https://www.cbssports.com/college-football/scoreboard/FBS/2023/regular/1/?layout=compact';
 
+function setGameResult(game: any) {
+	if (game.status === 'final') {
+		if (game.away_team.total > game.home_team.total) {
+			game.away_team.result = 'win';
+			game.home_team.result = 'loss';
+		} else if (game.away_team.total < game.home_team.total) {
+			game.away_team.result = 'loss';
+			game.home_team.result = 'win';
+		} else {
+			game.away_team.result = 'tie';
+			game.home_team.result = 'tie';
+		}
+	}
+}
+
 export const load = async () => {
 	return axios.get(url).then((response) => {
 		// Load HTML we fetched in the previous line
@@ -33,6 +48,7 @@ export const load = async () => {
 					game = {
 						away_team: {
 							name: trs.eq(0).find('.team-name-link').text(),
+							img: trs.eq(0).find('.team-details-wrapper').find('img').attr('src') || '',
 							first_quarter: parseInt(trs.eq(0).find('td').eq(1).text()),
 							second_quarter: parseInt(trs.eq(0).find('td').eq(2).text()),
 							third_quarter: parseInt(trs.eq(0).find('td').eq(3).text()),
@@ -40,10 +56,12 @@ export const load = async () => {
 							total: parseInt(trs.eq(0).find('.total').text()),
 							member_name: members.find((member) =>
 								member.teams.includes(trs.eq(0).find('.team-name-link').text())
-							)?.name
+							)?.name,
+							result: ''
 						},
 						home_team: {
 							name: trs.eq(1).find('.team-name-link').text(),
+							img: trs.eq(1).find('.team-details-wrapper').find('img').attr('src') || '',
 							first_quarter: parseInt(trs.eq(1).find('td').eq(1).text()),
 							second_quarter: parseInt(trs.eq(1).find('td').eq(2).text()),
 							third_quarter: parseInt(trs.eq(1).find('td').eq(3).text()),
@@ -51,7 +69,8 @@ export const load = async () => {
 							total: parseInt(trs.eq(1).find('.total').text()),
 							member_name: members.find((member) =>
 								member.teams.includes(trs.eq(1).find('.team-name-link').text())
-							)?.name
+							)?.name,
+							result: ''
 						},
 						status: status,
 						time: liveUpdate.find('.ingame').find('.game-status').text(),
@@ -63,6 +82,7 @@ export const load = async () => {
 					game = {
 						away_team: {
 							name: trs.eq(0).find('.team-name-link').text(),
+							img: trs.eq(0).find('.team-details-wrapper').find('img').attr('src') || '',
 							first_quarter: 0,
 							second_quarter: 0,
 							third_quarter: 0,
@@ -70,10 +90,12 @@ export const load = async () => {
 							total: 0,
 							member_name: members.find((member) =>
 								member.teams.includes(trs.eq(0).find('.team-name-link').text())
-							)?.name
+							)?.name,
+							result: ''
 						},
 						home_team: {
 							name: trs.eq(1).find('.team-name-link').text(),
+							img: trs.eq(1).find('.team-details-wrapper').find('img').attr('src') || '',
 							first_quarter: 0,
 							second_quarter: 0,
 							third_quarter: 0,
@@ -81,7 +103,8 @@ export const load = async () => {
 							total: 0,
 							member_name: members.find((member) =>
 								member.teams.includes(trs.eq(1).find('.team-name-link').text())
-							)?.name
+							)?.name,
+							result: ''
 						},
 						status: 'scheduled',
 						time: '',
@@ -89,6 +112,7 @@ export const load = async () => {
 					};
 				}
 				if (game.away_team.member_name || game.home_team.member_name) {
+					setGameResult(game);
 					games.push(game);
 				}
 			}

@@ -174,5 +174,7 @@ export class GameTeam {
 	fourth_quarter = 0;
 	total = 0;
 	name = '';
+	img = '';
+	result = '';
 	member_name?: string;
 }
