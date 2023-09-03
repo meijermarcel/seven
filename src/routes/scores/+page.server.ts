@@ -101,8 +101,8 @@ export const load = async () => {
 		);
 
 		console.log(live_games);
-		// console.log(sheduled_games);
-		// console.log(final_games);
+		console.log(sheduled_games);
+		console.log(final_games);
 
 		return {
 			live_games,

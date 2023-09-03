@@ -15,7 +15,7 @@
 
 <h5>Live</h5>
 <div class="game-container">
-    {#each data.live_games as game}
+    {#each data.final_games as game}
         <ScoreCard {game} />
     {/each}
 </div>
