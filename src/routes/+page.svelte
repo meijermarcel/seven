@@ -2,7 +2,6 @@
 	import type { Standings } from "$lib/types";
     import { slide } from "svelte/transition";
     import StandingsTable from "$lib/components/standings-table/StandingsTable.svelte";
-    import GameCard from "$lib/components/game-card/GameCard.svelte";
 
     export let data: Standings;
 </script>
@@ -75,20 +74,12 @@
         border-radius: 7px;
     }
 
-    .games-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 10px;
-    }
-
-    .daily-record {
-        text-align: center;
-        font-weight: bold;
-        font-size: 1.2rem;
-    }
-
-    .daily-record p {
-        margin: 0;
+    .record {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+        color: gray;
     }
 </style>
 
@@ -101,9 +92,11 @@
                     <h3>
                         <span class="position">{ i + 1 }</span>
                         { member.name }
-                        <!-- <span>{ i === 0 ? '👑' : i === 4 ? '🤡' : '' }</span> -->
                     </h3>
-                    <div class="games-behind">{member.gamesBehind } GB</div>
+                    <div class="record">
+                        <div>{member.wins}-{member.losses}</div>
+                        <div class="games-behind">{member.gamesBehind } GB</div>
+                    </div>
                 </div>
             </div>
             { #if !member.collapsed }
