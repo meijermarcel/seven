@@ -42,6 +42,7 @@ export const load = async () => {
 					const postgame = liveUpdate.find('.postgame');
 					if (postgame.length) {
 						status = postgame.text();
+						if (status.includes('final')) status = 'final';
 					}
 					// live/final game
 					const trs = table.find('tbody').find('tr');
@@ -107,9 +108,10 @@ export const load = async () => {
 							result: ''
 						},
 						status: 'scheduled',
-						time: '',
+						time: liveUpdate.find('.pregame').find('.game-status').find('formatter').text(),
 						channel: liveUpdate.find('.broadcaster').text()
 					};
+					console.log(liveUpdate.find('.game-status').eq(0));
 				}
 				if (game.away_team.member_name || game.home_team.member_name) {
 					setGameResult(game);
@@ -119,18 +121,18 @@ export const load = async () => {
 		});
 		// group games by live, scheduled, final
 		const live_games = games.filter((game) => game.status === 'live');
-		const sheduled_games = games.filter((game) => game.status === 'scheduled');
+		const scheduled_games = games.filter((game) => game.status === 'scheduled');
 		const final_games = games.filter(
 			(game) => game.status !== 'live' && game.status !== 'scheduled'
 		);
 
-		console.log(live_games);
-		console.log(sheduled_games);
-		console.log(final_games);
+		// console.log(live_games);
+		console.log(scheduled_games);
+		// console.log(final_games);
 
 		return {
 			live_games,
-			sheduled_games,
+			scheduled_games,
 			final_games
 		};
 	});
