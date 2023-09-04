@@ -3,9 +3,6 @@ import cheerio from 'cheerio';
 import type { GameScore } from '$lib/types';
 import { members } from '$lib/global-var';
 
-const url =
-	'https://www.cbssports.com/college-football/scoreboard/FBS/2023/regular/1/?layout=compact';
-
 function setGameResult(game: any) {
 	if (game.status === 'final') {
 		if (game.away_team.total > game.home_team.total) {
@@ -21,7 +18,9 @@ function setGameResult(game: any) {
 	}
 }
 
-export const load = async () => {
+export const load = async ({ params }) => {
+	const url = `https://www.cbssports.com/college-football/scoreboard/FBS/2023/regular/${params.slug}/?layout=compact`;
+
 	return axios.get(url).then((response) => {
 		// Load HTML we fetched in the previous line
 		const $ = cheerio.load(response.data);

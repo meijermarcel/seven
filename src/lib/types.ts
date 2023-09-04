@@ -178,3 +178,8 @@ export class GameTeam {
 	result = '';
 	member_name?: string;
 }
+
+export interface Week {
+	week_number: number;
+	period: string;
+}
