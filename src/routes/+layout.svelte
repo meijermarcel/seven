@@ -76,6 +76,10 @@
 
 <nav>
     <div class="title">CFB 2023</div>
+    <div>
+        <a href="/" data-sveltekit-preload-data class:active={$page.url.pathname==='/'}>Standings</a>
+        <a href="/scores/4" data-sveltekit-preload-data class:active={$page.url.pathname==='/scores/4'}>Scores</a>
+    </div>
 </nav>
 
 <div class="container">

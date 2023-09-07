@@ -78,7 +78,7 @@
     </div>
     {#if game.status !== 'final'}
         <div class="game-info">
-            <div>{game.channel}</div>
+            <div>{game.channel ? game.channel : 'N/A'}</div>
             <div>{game.time}</div>
         </div>
     {/if}

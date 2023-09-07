@@ -4,5 +4,5 @@
 </script>
 
 
-<WeekPicker />
+<!-- <WeekPicker /> -->
 <slot></slot>

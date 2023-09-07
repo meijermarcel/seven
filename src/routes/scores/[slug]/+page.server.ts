@@ -19,7 +19,8 @@ function setGameResult(game: any) {
 }
 
 export const load = async ({ params }) => {
-	const url = `https://www.cbssports.com/college-football/scoreboard/FBS/2023/regular/${params.slug}/?layout=compact`;
+	// const url = `https://www.cbssports.com/college-football/scoreboard/FBS/2023/regular/${params.slug}/?layout=compact`;
+	const url = 'https://www.cbssports.com/college-football/scoreboard/';
 
 	return axios.get(url).then((response) => {
 		// Load HTML we fetched in the previous line

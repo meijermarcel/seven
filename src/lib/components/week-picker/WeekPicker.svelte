@@ -25,7 +25,7 @@
     }
 
     a.selected {
-        color: black;
+        color: var(--primary-color);
         font-weight: bold;
     }
 </style>
