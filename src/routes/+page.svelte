@@ -100,7 +100,7 @@
                 </div>
             </div>
             { #if !member.collapsed }
-                <div class="team-container" transition:slide|local={{ duration: 150 }}>
+                <div class="team-container" transition:slide={{ duration: 150 }}>
                     <StandingsTable {member} />
                 </div>
             { /if }

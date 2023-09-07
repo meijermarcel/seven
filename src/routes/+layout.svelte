@@ -2,10 +2,10 @@
     import { SyncLoader } from 'svelte-loading-spinners';
     import { page, navigating } from '$app/stores';
 
-    import { dev } from '$app/environment';
-    import { inject } from '@vercel/analytics';
+    // import { dev } from '$app/environment';
+    // import { inject } from '@vercel/analytics';
  
-    inject({ mode: dev ? 'development' : 'production' });
+    // inject({ mode: dev ? 'development' : 'production' });
 </script>
 
 <style>
@@ -76,6 +76,10 @@
 
 <nav>
     <div class="title">CFB 2023</div>
+    <div>
+        <a href="/" data-sveltekit-preload-data class:active={$page.url.pathname==='/'}>Standings</a>
+        <a href="/scores/4" data-sveltekit-preload-data class:active={$page.url.pathname==='/scores/4'}>Scores</a>
+    </div>
 </nav>
 
 <div class="container">

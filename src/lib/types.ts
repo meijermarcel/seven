@@ -22,26 +22,26 @@ export class Team {
 	img = '';
 }
 
-export class Game {
-	awayTeam = new GameTeam('', '');
-	homeTeam = new GameTeam('', '');
-	status = '';
-	showScore = true;
-	outcome = '';
-}
+// export class Game {
+// 	awayTeam = new GameTeam('', '');
+// 	homeTeam = new GameTeam('', '');
+// 	status = '';
+// 	showScore = true;
+// 	outcome = '';
+// }
 
-export class GameTeam {
-	name = '';
-	memberName = '';
-	score? = 0;
-	logoSrc = '';
+// export class GameTeam {
+// 	name = '';
+// 	memberName = '';
+// 	score? = 0;
+// 	logoSrc = '';
 
-	constructor(name: string, memberName: string, logoSrc?: string) {
-		this.name = name;
-		this.memberName = memberName;
-		this.logoSrc = logoSrc || '';
-	}
-}
+// 	constructor(name: string, memberName: string, logoSrc?: string) {
+// 		this.name = name;
+// 		this.memberName = memberName;
+// 		this.logoSrc = logoSrc || '';
+// 	}
+// }
 
 export class Stats {
 	batting: StatField[] = [];
@@ -151,4 +151,35 @@ export class MLBGame {
 export class SelectValue {
 	label = '';
 	value = '';
+}
+
+export class ScoreGames {
+	live_games: GameScore[] = [];
+	scheduled_games: GameScore[] = [];
+	final_games: GameScore[] = [];
+}
+
+export class GameScore {
+	away_team: GameTeam = new GameTeam();
+	home_team: GameTeam = new GameTeam();
+	status = '';
+	time = '';
+	channel = '';
+}
+
+export class GameTeam {
+	first_quarter = 0;
+	second_quarter = 0;
+	third_quarter = 0;
+	fourth_quarter = 0;
+	total = 0;
+	name = '';
+	img = '';
+	result = '';
+	member_name?: string;
+}
+
+export interface Week {
+	week_number: number;
+	period: string;
 }
